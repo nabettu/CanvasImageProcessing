@@ -8,7 +8,7 @@ body {
 }
 
 .contents{
-    max-width : 680px;
+    max-width : 1080px;
     width: 95%;
     margin: 10px auto;
     padding: 10px 10px;
@@ -16,6 +16,12 @@ body {
     border-radius: 10px;
 }
 
+.imgContent{
+	width:45%;
+	display: inline-block;
+	_display: inline;
+}
+
 img {
-	width:42%;
+	width:100%;
 }

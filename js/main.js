@@ -24,7 +24,7 @@ $("#afile").onchange = function(evt){
 		if(userImg.width == 0)reader.readAsDataURL(file);
 		else {
 			$("#beforeImg").src=userImg.src;
-			$("#afterImg").src=imgTrans(userImg,"1").src;
+			$("#afterImg").src=imgTrans(userImg,"2").src;
 	 	}
 	}
 	reader.readAsDataURL(file);
@@ -48,7 +48,7 @@ function imgTrans(originImg,pattern) {
 			}
 			break;
 		case "1":
-		//グレースケール
+		//simple grayscale
 			for(var i = 0; i < originImgData.data.length; i+=4){
 		 	   var r = originImgData.data[i];
 		 	   var g = originImgData.data[i+1];
@@ -61,6 +61,20 @@ function imgTrans(originImg,pattern) {
 			}
 			break;
 		case "2":
+		//gray scale
+    // The human eye is bad at seeing red and blue, so we de-emphasize them.
+    			for(var i = 0; i < originImgData.data.length; i+=4){
+		 	   var r = 0.2126*originImgData.data[i];
+		 	   var g = 0.7152*originImgData.data[i+1];
+		 	   var b = 0.0722*originImgData.data[i+2];
+		 	   var gray = parseInt(r+g+b);
+		 	   afterImgData.data[i] = gray;
+		 	   afterImgData.data[i+1] = gray;
+		 	   afterImgData.data[i+2] = gray;
+		 	   afterImgData.data[i+3] = originImgData.data[i+3];
+			}
+			break;
+		case "3":
 		//ネガポジ変換
 			for(var i = 0; i < originImgData.data.length; i+=4){
 		 	   afterImgData.data[i] = 255 - originImgData.data[i];
