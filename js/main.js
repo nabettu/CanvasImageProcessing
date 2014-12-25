@@ -29,14 +29,13 @@ $("#afile").onchange = function(evt){
 }
 
 function imgOutput(originImg){
-	console.log(originImg.width*originImg.height);
 	if(originImg.width*originImg.height > 102400){
 		$("#sizeNotice").style.display="block";
-		$("#afterImg").src=imgTrans(imgResize(originImg,originImg.width/2,originImg.height/2),"2").src;
+		originImg = imgResize(originImg,originImg.width/2,originImg.height/2);
 	} else {
 		$("#sizeNotice").style.display="none";
-		$("#afterImg").src=imgTrans(originImg,"2").src;
 	}
+	$("#afterImg").src=imgTrans(originImg,"2").src;
 }
 
 //画像をグレースケール等に変更する関数

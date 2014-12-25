@@ -16,6 +16,10 @@ body {
     border-radius: 10px;
 }
 
+.title {
+    color: #ffffff;
+}
+
 .imgContent{
 	width:45%;
 	display: inline-block;
