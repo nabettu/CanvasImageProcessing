@@ -1,0 +1,79 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />	
+<meta name="robots" content="INDEX,FOLLOW" />	
+<meta name="viewport" content="width=device-width, maximum-scale=1.0,initial-scale=0.7, user-scalable=1">  
+
+<script src="js/jquery.min.js"></script>
+
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="bootstrap/flat/css/flat-ui.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet" type="text/css" media="all">
+
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" href="img/favicon.ico" />
+
+<title>CanvasImageProcessing</title>
+
+<meta property="og:title" content="CanvasImageProcessing">
+<meta property="og:url" content="https://tatsuakiw.github.io/CanvasImageProcessing" >
+<meta property="og:site_name" content="CanvasImageProcessing" />
+<meta property="og:description" content="Canvasを使って画像処理を行うサンプルページです。|CanvasImageProcessing" />
+<meta property="og:image" content="img/ogp_logo.png">
+<meta property="og:type" content="Website">
+<meta property="fb:admins" content="1667345770" >
+<meta property="fb:app_id" content="1484126635201189" >
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@tatsuaki_w">
+<meta name="twitter:creator" content="@tatsuaki_w">
+<meta name="twitter:title" content="CanvasImageProcessing">
+<meta name="twitter:description" content="Canvasを使って画像処理を行うサンプルページです。|CanvasImageProcessing">
+<meta name="twitter:image" content="img/ogp_logo.png">
+
+<link href="img/ogp_logo.png" rel="apple-touch-icon" type="image/png" />
+<meta name="keywords" content="Canvas,ImageProcessing">
+<meta name="description" content="Canvasを使って画像処理を行うサンプルページです。">
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1484126635201189',
+      xfbml      : true,
+      version    : 'v2.1'
+    });
+  };
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+</head>
+<body>
+<div class="container-fluid">
+<div class="contents">
+
+
+<p>画像処理にかけたい画像を選択して下しあ</p>
+<input class="fullform fileUpBtn form-control" id="afile" type="file" name="img" accept="image/*">
+
+<p>before</p>
+<img id="beforeImg">
+
+<p>after</p>
+<img id="afterImg">
+<script src="js/main.js"></script>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+body {
+    text-align: center;
+    background-color: #000000;
+}
+
+.container-fluid{
+    margin: 60px auto 10px;
+}
+
+.contents{
+    max-width : 680px;
+    width: 95%;
+    margin: 10px auto;
+    padding: 10px 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+img {
+	width:42%;
+}
