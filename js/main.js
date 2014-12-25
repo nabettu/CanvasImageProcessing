@@ -1,6 +1,3 @@
-var userImg = new Image();
-var outputImg = new Image();
-
 function $(id) {
 	return document.querySelector(id);
 }
@@ -20,14 +17,26 @@ $("#afile").onchange = function(evt){
 	};
 	var reader = new FileReader();
 	reader.onload = function(evt) {
+		var userImg = new Image();
 		userImg.src = reader.result;
 		if(userImg.width == 0)reader.readAsDataURL(file);
 		else {
 			$("#beforeImg").src=userImg.src;
-			$("#afterImg").src=imgTrans(userImg,"2").src;
+			imgOutput(userImg);
 	 	}
 	}
 	reader.readAsDataURL(file);
+}
+
+function imgOutput(originImg){
+	console.log(originImg.width*originImg.height);
+	if(originImg.width*originImg.height > 102400){
+		$("#sizeNotice").style.display="block";
+		$("#afterImg").src=imgTrans(imgResize(originImg,originImg.width/2,originImg.height/2),"2").src;
+	} else {
+		$("#sizeNotice").style.display="none";
+		$("#afterImg").src=imgTrans(originImg,"2").src;
+	}
 }
 
 //画像をグレースケール等に変更する関数
