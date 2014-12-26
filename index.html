@@ -63,21 +63,24 @@
 <div class="title">Image Processing By Canvas</div>
 <div class="contents">
 
-<p>画像処理にかけたい画像を選択して下さい　please select image for processing</p>
+<h5>select image for processing</h5>
 <input class="fullform fileUpBtn form-control" id="afile" type="file" name="img" accept="image/*">
-<p>かけたい処理を選択して下しあ　please select process</p>
-<div class="btn btn-info selectBtn">Simple GrayScale<br>シンプルグレースケール</div>
-<div class="btn btn-info selectBtn">Emphasize GrayScale<br>強調グレースケール</div>
-<div class="btn btn-info selectBtn">reverse(negative-positive)<br>ネガポジ変換</div><br>
-<p id="sizeNotice" style="display:none;">画像のサイズが大きいため縮小してから変換します<br>resize image cuz this image is too large</p>
+<h5>select process</h5>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'1')">Simple GrayScale</div>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'2')">Emphasize GrayScale</div>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'3')">reverse(negative-positive)</div><br>
+
+<div id="sizeNotice" class="alert alert-danger alert-dismissible" role="alert" style="display:none;">
+  reduction image cuz your image is too large
+</div>
 
 <span class="imgContent" id="beforeImageContent">
-	<p>before</p>
+	<h5>before</h5>
 	<img id="beforeImg">
 </span>
 
 <span class="imgContent" id="afterImageContent">
-	<p>after</p>
+	<h5>after</h5>
 	<img id="afterImg">
 </span>
 
