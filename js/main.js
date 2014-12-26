@@ -97,6 +97,20 @@ function imgTrans(originImg,pattern) {
 		 	   afterImgData.data[i+3] = originImgData.data[i+3];
 			}
 			break;
+		case "4":
+		//２値化 threshold 
+			for(var i = 0; i < originImgData.data.length; i+=4){
+		 	   var r = originImgData.data[i];
+		 	   var g = originImgData.data[i+1];
+		 	   var b = originImgData.data[i+2];
+		 	   if(127<parseInt((r+g+b)/3))var gray = 255;
+		 	   else var gray = 0;
+		 	   afterImgData.data[i] = gray;
+		 	   afterImgData.data[i+1] = gray;
+		 	   afterImgData.data[i+2] = gray;
+		 	   afterImgData.data[i+3] = originImgData.data[i+3];
+			}
+			break;
 	}
 	
 	Tcontext.putImageData(afterImgData, 0, 0);
