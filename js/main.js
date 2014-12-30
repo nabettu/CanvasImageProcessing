@@ -41,11 +41,11 @@ function imgOutput(originImg,pattern){
 	} else {
 		$("#sizeNotice").style.display="none";
 	}
-	$("#afterImg").src=imgTrans(originImg,pattern).src;
+	$("#afterImg").src=imgTrans(originImg,pattern,$("#thresholdValue").value).src;
 }
 
 //画像をグレースケール等に変更する関数
-function imgTrans(originImg,pattern) {
+function imgTrans(originImg,pattern,value) {
 	var Tcanvas = document.createElement('canvas');
 	Tcanvas.width = originImg.width;
 	Tcanvas.height = originImg.height;
@@ -103,7 +103,7 @@ function imgTrans(originImg,pattern) {
 		 	   var r = originImgData.data[i];
 		 	   var g = originImgData.data[i+1];
 		 	   var b = originImgData.data[i+2];
-		 	   if(127<parseInt((r+g+b)/3))var gray = 255;
+		 	   if(value<parseInt((r+g+b)/3))var gray = 255;
 		 	   else var gray = 0;
 		 	   afterImgData.data[i] = gray;
 		 	   afterImgData.data[i+1] = gray;
