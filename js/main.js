@@ -41,7 +41,22 @@ function imgOutput(originImg,pattern){
 	} else {
 		$("#sizeNotice").style.display="none";
 	}
-	$("#afterImg").src=imgTrans(originImg,pattern,$("#thresholdValue").value).src;
+	switch (pattern){
+		case "4":		//threshold
+		var value = $("#thresholdValue").value;
+		break;
+
+		case "5":		//AboveFilter
+			var value = new Array(9);
+			for(var i = 0; i < value.length; i++)value[i] = parseFloat($("#filterValue" + i).value);
+		break;
+
+		case "6":		//ShapenFilter
+			var value = new Array(0,-1,0,-1,5,-1,0,-1,0);
+			pattern = "5";
+		break;
+	}
+	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
 }
 
 //画像をグレースケール等に変更する関数
@@ -111,8 +126,30 @@ function imgTrans(originImg,pattern,value) {
 		 	   afterImgData.data[i+3] = originImgData.data[i+3];
 			}
 			break;
-	}
-	
+		case "5":
+		//AboveFilter 
+			for(var x = 0; x < Tcanvas.width; x++){
+				for(var y = 0; y < Tcanvas.height; y++){
+				   	var cp = (y*Tcanvas.width+x)*4; //currentPixel
+					for(var k = 0; k < 4; k++){
+					   	var t = 0;
+						var cpc = cp + k;//currentPixelColor
+						if(k == 3)afterImgData.data[cpc] = originImgData.data[cpc];//alphaの場合は元の値を固定で入れる
+						else {
+							var currentPixelValue = 0;
+							for(var i = -1; i < 2; i++){
+								for(var j = -1; j < 2; j++){
+									currentPixelValue = currentPixelValue + originImgData.data[cpc+i*4+j*4*Tcanvas.width]*value[t];
+									t++;
+								}
+							};
+							afterImgData.data[cpc] = parseInt(currentPixelValue);
+						}
+					}
+			 	}
+			}
+			break;
+	}	
 	Tcontext.putImageData(afterImgData, 0, 0);
 	var afterImg = new Image();
 	afterImg.src = Tcanvas.toDataURL();

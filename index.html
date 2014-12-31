@@ -66,11 +66,29 @@
 <h5>select image for processing</h5>
 <input class="fullform fileUpBtn form-control" id="afile" type="file" name="img" accept="image/*">
 <h5>select process</h5>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'0')">Original Image</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'1')">Simple GrayScale</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'2')">Emphasize GrayScale</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'3')">Reverse</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'4')">Threshold</div>
 <input type="number" id="thresholdValue" value="127" placeholder="127" onkeyup="imgOutput(userImg,'4')" maxlength="3" />
+
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'6')">Shapen Filter</div>
+
+<br>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'5')">Above Filter</div>
+<br>
+<input type="number" id="filterValue0" value="0.11" placeholder="1" maxlength="5" />
+<input type="number" id="filterValue1" value="0.11" placeholder="1" maxlength="5" />
+<input type="number" id="filterValue2" value="0.11" placeholder="1" maxlength="5" />
+<br>
+<input type="number" id="filterValue3" value="0.11" placeholder="1" maxlength="5" />
+<input type="number" id="filterValue4" value="0.11" placeholder="1" maxlength="5" />
+<input type="number" id="filterValue5" value="0.11" placeholder="1" maxlength="5" />
+<br>
+<input type="number" id="filterValue6" value="0.11" placeholder="1" maxlength="5" />
+<input type="number" id="filterValue7" value="0.11" placeholder="1" maxlength="5" />
+<input type="number" id="filterValue8" value="0.11" placeholder="1" maxlength="5" />
 
 <br>
 
