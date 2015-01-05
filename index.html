@@ -69,18 +69,28 @@
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'0')">Original Image</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'1')">Simple GrayScale</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'2')">Emphasize GrayScale</div>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'3')">Reverse</div>
+
+<br>
+
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'7')">Segment GrayScale</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'8')">Segment Color</div>
 <input type="number" id="segmentGrayValue" value="5" placeholder="5" onkeyup="imgOutput(userImg,'7')" maxlength="3" />
 
 <br>
 
-<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'3')">Reverse</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'4')">Threshold</div>
 <input type="number" id="thresholdValue" value="127" placeholder="127" onkeyup="imgOutput(userImg,'4')" maxlength="3" />
 
-<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'6')">Shapen Filter</div>
+<br>
 
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'9')">Color Filter</div>
+<input type="number" id="colorFilterValueRL" value="50" placeholder="50" maxlength="3" /> ＜r＜ <input type="number" id="colorFilterValueRU" value="200" placeholder="200" maxlength="3" />：
+<input type="number" id="colorFilterValueGL" value="50" placeholder="50" maxlength="3" />＜g＜<input type="number" id="colorFilterValueGU" value="200" placeholder="200" maxlength="3" />：
+<input type="number" id="colorFilterValueBL" value="50" placeholder="50" maxlength="3" />＜b＜<input type="number" id="colorFilterValueBU" value="200" placeholder="200" maxlength="3" />
+
+<br>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'6')">Shapen Filter</div>
 <br>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'5')">Above Filter</div>
 <br>

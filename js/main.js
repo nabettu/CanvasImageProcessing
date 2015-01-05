@@ -62,6 +62,9 @@ function imgOutput(originImg,pattern){
 		case "8":		//Segment Color 
 			var value = $("#segmentGrayValue").value;
 		break;
+		case "9":		//ColorFilter
+			var value = [$("#colorFilterValueRL").value,$("#colorFilterValueRU").value,$("#colorFilterValueGL").value,$("#colorFilterValueGU").value,$("#colorFilterValueBL").value,$("#colorFilterValueBU").value];
+		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
 }
@@ -181,6 +184,25 @@ function imgTrans(originImg,pattern,value) {
 		 	   afterImgData.data[i] = parseInt((Math.round(r/ Math.round(255/value))) * Math.round(255/value));
 		 	   afterImgData.data[i+1] = parseInt((Math.round(g/ Math.round(255/value))) * Math.round(255/value));;
 		 	   afterImgData.data[i+2] = parseInt((Math.round(b/ Math.round(255/value))) * Math.round(255/value));;
+		 	   afterImgData.data[i+3] = originImgData.data[i+3];
+			}
+			break;
+		case "9":
+		//Color Filter
+			for(var i = 0; i < originImgData.data.length; i+=4){
+		 	   var r = originImgData.data[i];
+		 	   var g = originImgData.data[i+1];
+		 	   var b = originImgData.data[i+2];
+		 	   if((value[0]<r)&&(r<value[1])&&(value[2]<g)&&(g<value[3])&&(value[4]<b)&&(b<value[5])){
+			 	   afterImgData.data[i] = originImgData.data[i];
+			 	   afterImgData.data[i+1] = originImgData.data[i+1];
+			 	   afterImgData.data[i+2] = originImgData.data[i+2];
+		 	   } else {
+			 	   var gray = parseInt((r+g+b)/3);
+			 	   afterImgData.data[i] = gray;
+			 	   afterImgData.data[i+1] = gray;
+			 	   afterImgData.data[i+2] = gray;
+			 	}
 		 	   afterImgData.data[i+3] = originImgData.data[i+3];
 			}
 			break;
