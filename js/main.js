@@ -59,6 +59,9 @@ function imgOutput(originImg,pattern){
 		case "7":		//Segment GrayScale 
 			var value = $("#segmentGrayValue").value;
 		break;
+		case "8":		//Segment Color 
+			var value = $("#segmentGrayValue").value;
+		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
 }
@@ -161,10 +164,23 @@ function imgTrans(originImg,pattern,value) {
 		 	   var g = 0.7152*originImgData.data[i+1];
 		 	   var b = 0.0722*originImgData.data[i+2];
 		 	   var average = parseInt(r+g+b);
-		 	   var gray = parseInt((Math.round(average / Math.round(255/value))) * Math.round(255/value));
+		 	   var gray = parseInt((Math.round(average/ Math.round(255/value))) * Math.round(255/value));
 		 	   afterImgData.data[i] = gray;
 		 	   afterImgData.data[i+1] = gray;
 		 	   afterImgData.data[i+2] = gray;
+		 	   afterImgData.data[i+3] = originImgData.data[i+3];
+			}
+			break;
+		case "8":
+		//Segment Color
+			value = value -1 ;
+			for(var i = 0; i < originImgData.data.length; i+=4){
+		 	   var r = originImgData.data[i];
+		 	   var g = originImgData.data[i+1];
+		 	   var b = originImgData.data[i+2];
+		 	   afterImgData.data[i] = parseInt((Math.round(r/ Math.round(255/value))) * Math.round(255/value));
+		 	   afterImgData.data[i+1] = parseInt((Math.round(g/ Math.round(255/value))) * Math.round(255/value));;
+		 	   afterImgData.data[i+2] = parseInt((Math.round(b/ Math.round(255/value))) * Math.round(255/value));;
 		 	   afterImgData.data[i+3] = originImgData.data[i+3];
 			}
 			break;
