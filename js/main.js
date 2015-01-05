@@ -65,6 +65,14 @@ function imgOutput(originImg,pattern){
 		case "9":		//ColorFilter
 			var value = [$("#colorFilterValueRL").value,$("#colorFilterValueRU").value,$("#colorFilterValueGL").value,$("#colorFilterValueGU").value,$("#colorFilterValueBL").value,$("#colorFilterValueBU").value];
 		break;
+		case "10":		//Like SobelFilter
+			var value = new Array(-3,0,3,-5,0,5,-3,0,3);
+			originImg = imgTrans(originImg,'5',value);
+			originImg.onload = function(evt) {
+				$("#afterImg").src=imgTrans(originImg,"4",127).src;
+			}
+			return 0;
+		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
 }
