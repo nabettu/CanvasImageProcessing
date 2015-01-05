@@ -69,6 +69,9 @@
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'0')">Original Image</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'1')">Simple GrayScale</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'2')">Emphasize GrayScale</div>
+<div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'7')">Segment GrayScale</div>
+<input type="number" id="segmentGrayValue" value="5" placeholder="5" onkeyup="imgOutput(userImg,'7')" maxlength="3" />
+
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'3')">Reverse</div>
 <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'4')">Threshold</div>
 <input type="number" id="thresholdValue" value="127" placeholder="127" onkeyup="imgOutput(userImg,'4')" maxlength="3" />

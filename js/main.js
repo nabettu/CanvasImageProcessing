@@ -55,6 +55,10 @@ function imgOutput(originImg,pattern){
 			var value = new Array(0,-1,0,-1,5,-1,0,-1,0);
 			pattern = "5";
 		break;
+	
+		case "7":		//Segment GrayScale 
+			var value = $("#segmentGrayValue").value;
+		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
 }
@@ -147,6 +151,21 @@ function imgTrans(originImg,pattern,value) {
 						}
 					}
 			 	}
+			}
+			break;
+		case "7":
+		//Segment GrayScale 
+			value = value -1 ;
+			for(var i = 0; i < originImgData.data.length; i+=4){
+		 	   var r = 0.2126*originImgData.data[i];
+		 	   var g = 0.7152*originImgData.data[i+1];
+		 	   var b = 0.0722*originImgData.data[i+2];
+		 	   var average = parseInt(r+g+b);
+		 	   var gray = parseInt((Math.round(average / Math.round(255/value))) * Math.round(255/value));
+		 	   afterImgData.data[i] = gray;
+		 	   afterImgData.data[i+1] = gray;
+		 	   afterImgData.data[i+2] = gray;
+		 	   afterImgData.data[i+3] = originImgData.data[i+3];
 			}
 			break;
 	}	
