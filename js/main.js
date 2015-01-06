@@ -1,5 +1,7 @@
 var userImg = new Image();
 userImg.src="img/lena.png";
+var loadImg = new Image();
+loadImg.src="img/loading.gif";
 userImg.onload = function(evt){
 	$("#beforeImg").src=userImg.src;
 	imgOutput(userImg,"1");	
@@ -35,6 +37,8 @@ $("#afile").onchange = function(evt){
 }
 
 function imgOutput(originImg,pattern){
+	$("#afterImg").src=loadImg.src;
+
 	if(originImg.width*originImg.height > 1024000){
 		$("#sizeNotice").style.display="block";
 		originImg = imgResize(originImg,originImg.width/2,originImg.height/2);
