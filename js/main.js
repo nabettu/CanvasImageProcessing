@@ -81,6 +81,9 @@ function imgOutput(originImg,pattern){
 			var value = new Array(0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.11);
 			pattern = "5";
 		break;
+		case "12":		//mosaic
+			var value = $("#mosaicValue").value;
+		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
 }
@@ -222,6 +225,37 @@ function imgTrans(originImg,pattern,value) {
 		 	   afterImgData.data[i+3] = originImgData.data[i+3];
 			}
 			break;
+		case "12":
+		//mosaic 
+			for(var x = 0; x < Tcanvas.width; x = x + parseInt(value)){
+				for(var y = 0; y < Tcanvas.height; y = y + parseInt(value)){
+				   	var cp = (y*Tcanvas.width+x)*4; //currentPixel
+					var averageValueR = 0;
+					var averageValueG = 0;
+					var averageValueB = 0;
+					for(var i = 0; i < value; i++){
+						for(var j = 0; j < value; j++){
+							averageValueR = averageValueR + originImgData.data[cp+i*4+j*4*Tcanvas.width];
+							averageValueG = averageValueG + originImgData.data[cp+1+i*4+j*4*Tcanvas.width];
+							averageValueB = averageValueB + originImgData.data[cp+2+i*4+j*4*Tcanvas.width];
+						}
+					}
+
+					averageValueR = parseInt(averageValueR / (value * value));
+					averageValueG = parseInt(averageValueG / (value * value));
+					averageValueB = parseInt(averageValueB / (value * value));
+
+					for(var i = 0; i < value; i++){
+						for(var j = 0; j < value; j++){
+							afterImgData.data[cp+i*4+j*4*Tcanvas.width] = averageValueR;
+							afterImgData.data[cp+1+i*4+j*4*Tcanvas.width] = averageValueG;
+							afterImgData.data[cp+2+i*4+j*4*Tcanvas.width] = averageValueB;
+							afterImgData.data[cp+3+i*4+j*4*Tcanvas.width] = originImgData.data[cp+3+i*4+j*4*Tcanvas.width];
+						}
+					}
+			 	}
+			}
+			break;			
 	}	
 	Tcontext.putImageData(afterImgData, 0, 0);
 	var afterImg = new Image();

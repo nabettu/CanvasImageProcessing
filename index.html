@@ -84,13 +84,9 @@
 <div class="btnGroup inline">
   <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'4')">Threshold</div>
   <input type="number" id="thresholdValue" value="127" placeholder="127" onkeyup="imgOutput(userImg,'4')" maxlength="3" />
-</div>
-
-<div class="btnGroup inline">
-  <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'9')">Color Filter</div>
-  <input type="number" id="colorFilterValueRL" value="50" placeholder="50" maxlength="3" /> ＜Red＜ <input type="number" id="colorFilterValueRU" value="200" placeholder="200" maxlength="3" />：
-  <input type="number" id="colorFilterValueGL" value="50" placeholder="50" maxlength="3" />＜Green＜<input type="number" id="colorFilterValueGU" value="200" placeholder="200" maxlength="3" />：
-  <input type="number" id="colorFilterValueBL" value="50" placeholder="50" maxlength="3" />＜Blue＜<input type="number" id="colorFilterValueBU" value="200" placeholder="200" maxlength="3" />
+  <br>
+  <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'12')">Mosaic</div>
+  <input type="number" id="mosaicValue" value="10" placeholder="10" onkeyup="imgOutput(userImg,'12')" maxlength="3" />
 </div>
 
 <div class="btnGroup inline">
@@ -115,6 +111,16 @@
   <input type="number" id="filterValue6" value="0.11" placeholder="1" maxlength="5" />
   <input type="number" id="filterValue7" value="0.11" placeholder="1" maxlength="5" />
   <input type="number" id="filterValue8" value="0.11" placeholder="1" maxlength="5" />
+</div>
+
+<div class="btnGroup inline">
+  <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'9')">Color Filter</div>
+  <br>
+  <input type="number" id="colorFilterValueRL" value="50" placeholder="50" maxlength="3" /> ＜Red＜ <input type="number" id="colorFilterValueRU" value="200" placeholder="200" maxlength="3" />
+  <br>
+  <input type="number" id="colorFilterValueGL" value="50" placeholder="50" maxlength="3" />＜Green＜<input type="number" id="colorFilterValueGU" value="200" placeholder="200" maxlength="3" />
+  <br>
+  <input type="number" id="colorFilterValueBL" value="50" placeholder="50" maxlength="3" />＜Blue＜<input type="number" id="colorFilterValueBU" value="200" placeholder="200" maxlength="3" />
 </div>
 
 <br>
