@@ -27,10 +27,23 @@ body {
 	_display: inline;
 }
 
+.inline{
+    display: inline-block;
+    _display: inline;
+}
+
+.btnGroup{
+    border :solid 1px #999999;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px 10px 0px 10px;
+}
+
 img {
 	width:100%;
 }
 
 input {
     width:60px;
+    margin:0px 5px 10px 5px;
 }

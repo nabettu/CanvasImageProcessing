@@ -60,7 +60,7 @@ function imgOutput(originImg,pattern){
 			var value = $("#segmentGrayValue").value;
 		break;
 		case "8":		//Segment Color 
-			var value = $("#segmentGrayValue").value;
+			var value = $("#segmentColorValue").value;
 		break;
 		case "9":		//ColorFilter
 			var value = [$("#colorFilterValueRL").value,$("#colorFilterValueRU").value,$("#colorFilterValueGL").value,$("#colorFilterValueGU").value,$("#colorFilterValueBL").value,$("#colorFilterValueBU").value];
@@ -72,6 +72,10 @@ function imgOutput(originImg,pattern){
 				$("#afterImg").src=imgTrans(originImg,"4",127).src;
 			}
 			return 0;
+		break;
+		case "11":		//Smoothing
+			var value = new Array(0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.11);
+			pattern = "5";
 		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
