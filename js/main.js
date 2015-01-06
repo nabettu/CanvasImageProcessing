@@ -280,3 +280,58 @@ function imgResize(originImg,rWidth,rHeight){
 	afterImg.src = Rcanvas.toDataURL();
 	return afterImg;
 }
+
+
+function displayHistogram(){
+	$("#beforeHisto").src = makeHistogram($("#beforeImg")).src;
+	$("#afterHisto").src = makeHistogram($("#afterImg")).src;
+}
+
+//画像からヒストグラムを作成する関数
+function makeHistogram(originImg) {
+	var histHeight = 80;
+	var Tcanvas = document.createElement('canvas');
+	Tcanvas.width = originImg.width;
+	Tcanvas.height = originImg.height;
+	var Tcontext = Tcanvas.getContext('2d');
+	Tcontext.drawImage(originImg, 0, 0);
+	var originImgData = Tcontext.getImageData(0, 0, originImg.width, originImg.height);
+
+	Tcanvas.width = 256;
+	Tcanvas.height = histHeight * 3;
+
+	var histData = new Array(3);
+	for(j = 0; j < 3; j++){
+		histData[j] = new Array(256);
+		for(i = 0; i < 256; i++)
+			histData[j][i] = 0;
+	}
+
+	for(var i = 0; i < originImgData.data.length; i+=4)
+		for(j = 0; j < 3; j++)
+			histData[j][originImgData.data[i+j]]++;
+
+	var maxColor = [0,0,0];
+
+	for(i=0; i< 256;i++)
+		for(j = 0; j < 3; j++)
+			if(maxColor[j] < histData[j][i])
+				maxColor[j] =histData[j][i]; 
+
+	for(i=0; i< 256;i++)
+		for(j = 0; j < 3; j++)
+			histData[j][i] = histData[j][i] / (maxColor[j]/histHeight);
+
+	for(i=0; i< 256;i++){
+		Tcontext.fillStyle = 'rgba(' + i + ', 0, 0, 1)';
+		Tcontext.fillRect(i,histHeight,1,-histData[0][i]);
+		Tcontext.fillStyle = 'rgba(0, '+ i +', 0, 1)';
+		Tcontext.fillRect(i,histHeight*2,1,-histData[1][i]);
+		Tcontext.fillStyle = 'rgba(0, 0, '+ i +', 1)';
+		Tcontext.fillRect(i,histHeight*3,1,-histData[2][i]);
+	}
+
+	var afterImg = new Image();
+	afterImg.src = Tcanvas.toDataURL();
+	return afterImg;
+}

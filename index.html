@@ -75,10 +75,14 @@
 </div>
 
 <div class="btnGroup inline">
-  <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'7')">Segment GrayScale</div>
-  <input type="number" id="segmentGrayValue" value="5" placeholder="5" onkeyup="imgOutput(userImg,'7')" maxlength="3" />
-  <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'8')">Segment Color</div>
-  <input type="number" id="segmentColorValue" value="5" placeholder="5" onkeyup="imgOutput(userImg,'8')" maxlength="3" />
+  <nobr>
+    <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'7')">Segment GrayScale</div>
+    <input type="number" id="segmentGrayValue" value="5" placeholder="5" onkeyup="imgOutput(userImg,'7')" maxlength="3" />
+  </nobr>
+  <nobr class="inline">
+    <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'8')">Segment Color</div>
+    <input type="number" id="segmentColorValue" value="5" placeholder="5" onkeyup="imgOutput(userImg,'8')" maxlength="3" />
+  <nobr>
 </div>
 
 <div class="btnGroup inline">
@@ -86,7 +90,7 @@
   <input type="number" id="thresholdValue" value="127" placeholder="127" onkeyup="imgOutput(userImg,'4')" maxlength="3" />
   <br>
   <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'12')">Mosaic</div>
-  <input type="number" id="mosaicValue" value="10" placeholder="10" onkeyup="imgOutput(userImg,'12')" maxlength="3" />
+  <input type="number" id="mosaicValue" value="10" placeholder="10" maxlength="3" />
 </div>
 
 <div class="btnGroup inline">
@@ -129,15 +133,21 @@
   reduction image cuz your image is too large
 </div>
 
-<span class="imgContent" id="beforeImageContent">
+<div class="imgContent inline" id="beforeImageContent">
 	<h5>before</h5>
 	<img id="beforeImg">
-</span>
+</div>
 
-<span class="imgContent" id="afterImageContent">
+<div class="imgContent inline" id="afterImageContent">
 	<h5>after</h5>
 	<img id="afterImg">
-</span>
+</div>
+  
+<div>
+  <div class="histoBtn btn btn-info selectBtn" onclick="displayHistogram();">Make Histogram</div>
+  <img class="imgContent inline" id="beforeHisto">
+  <img class="imgContent inline" id="afterHisto">
+</div>
 
 <script src="js/main.js"></script>
 
