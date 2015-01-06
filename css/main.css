@@ -37,11 +37,15 @@ body {
     padding: 10px 10px 0px 10px;
 }
 
-.histoBtn{
-    width:80%;
-    display: block;
+.funcBtn{
+    width:40%;
     margin: auto;
 }
+
+.centerGroup{
+    text-align: center;
+}
+
 
 img {
 	width:100%;
