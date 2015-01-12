@@ -1,5 +1,7 @@
 var userImg = new Image();
 userImg.src="img/lena.png";
+var loadImg = new Image();
+loadImg.src="img/loading.gif";
 userImg.onload = function(evt){
 	$("#beforeImg").src=userImg.src;
 	imgOutput(userImg,"1");	
@@ -35,6 +37,8 @@ $("#afile").onchange = function(evt){
 }
 
 function imgOutput(originImg,pattern){
+	$("#afterImg").src=loadImg.src;
+
 	if(originImg.width*originImg.height > 1024000){
 		$("#sizeNotice").style.display="block";
 		originImg = imgResize(originImg,originImg.width/2,originImg.height/2);
@@ -60,7 +64,7 @@ function imgOutput(originImg,pattern){
 			var value = $("#segmentGrayValue").value;
 		break;
 		case "8":		//Segment Color 
-			var value = $("#segmentGrayValue").value;
+			var value = $("#segmentColorValue").value;
 		break;
 		case "9":		//ColorFilter
 			var value = [$("#colorFilterValueRL").value,$("#colorFilterValueRU").value,$("#colorFilterValueGL").value,$("#colorFilterValueGU").value,$("#colorFilterValueBL").value,$("#colorFilterValueBU").value];
@@ -72,6 +76,13 @@ function imgOutput(originImg,pattern){
 				$("#afterImg").src=imgTrans(originImg,"4",127).src;
 			}
 			return 0;
+		break;
+		case "11":		//Smoothing
+			var value = new Array(0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.11,0.11);
+			pattern = "5";
+		break;
+		case "12":		//mosaic
+			var value = $("#mosaicValue").value;
 		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
@@ -214,6 +225,37 @@ function imgTrans(originImg,pattern,value) {
 		 	   afterImgData.data[i+3] = originImgData.data[i+3];
 			}
 			break;
+		case "12":
+		//mosaic 
+			for(var x = 0; x < Tcanvas.width; x = x + parseInt(value)){
+				for(var y = 0; y < Tcanvas.height; y = y + parseInt(value)){
+				   	var cp = (y*Tcanvas.width+x)*4; //currentPixel
+					var averageValueR = 0;
+					var averageValueG = 0;
+					var averageValueB = 0;
+					for(var i = 0; i < value; i++){
+						for(var j = 0; j < value; j++){
+							averageValueR = averageValueR + originImgData.data[cp+i*4+j*4*Tcanvas.width];
+							averageValueG = averageValueG + originImgData.data[cp+1+i*4+j*4*Tcanvas.width];
+							averageValueB = averageValueB + originImgData.data[cp+2+i*4+j*4*Tcanvas.width];
+						}
+					}
+
+					averageValueR = parseInt(averageValueR / (value * value));
+					averageValueG = parseInt(averageValueG / (value * value));
+					averageValueB = parseInt(averageValueB / (value * value));
+
+					for(var i = 0; i < value; i++){
+						for(var j = 0; j < value; j++){
+							afterImgData.data[cp+i*4+j*4*Tcanvas.width] = averageValueR;
+							afterImgData.data[cp+1+i*4+j*4*Tcanvas.width] = averageValueG;
+							afterImgData.data[cp+2+i*4+j*4*Tcanvas.width] = averageValueB;
+							afterImgData.data[cp+3+i*4+j*4*Tcanvas.width] = originImgData.data[cp+3+i*4+j*4*Tcanvas.width];
+						}
+					}
+			 	}
+			}
+			break;			
 	}	
 	Tcontext.putImageData(afterImgData, 0, 0);
 	var afterImg = new Image();
@@ -251,4 +293,58 @@ function imgRotate(originImg){
 
 	userImg.src = Rcanvas.toDataURL();
 	return 0;
+}
+
+function displayHistogram(){
+	$("#beforeHisto").src = makeHistogram($("#beforeImg")).src;
+	$("#afterHisto").src = makeHistogram($("#afterImg")).src;
+}
+
+//画像からヒストグラムを作成する関数
+function makeHistogram(originImg) {
+	var histHeight = 80;
+	var Tcanvas = document.createElement('canvas');
+	Tcanvas.width = originImg.width;
+	Tcanvas.height = originImg.height;
+	var Tcontext = Tcanvas.getContext('2d');
+	Tcontext.drawImage(originImg, 0, 0);
+	var originImgData = Tcontext.getImageData(0, 0, originImg.width, originImg.height);
+
+	Tcanvas.width = 256;
+	Tcanvas.height = histHeight * 3;
+
+	var histData = new Array(3);
+	for(j = 0; j < 3; j++){
+		histData[j] = new Array(256);
+		for(i = 0; i < 256; i++)
+			histData[j][i] = 0;
+	}
+
+	for(var i = 0; i < originImgData.data.length; i+=4)
+		for(j = 0; j < 3; j++)
+			histData[j][originImgData.data[i+j]]++;
+
+	var maxColor = [0,0,0];
+
+	for(i=0; i< 256;i++)
+		for(j = 0; j < 3; j++)
+			if(maxColor[j] < histData[j][i])
+				maxColor[j] =histData[j][i]; 
+
+	for(i=0; i< 256;i++)
+		for(j = 0; j < 3; j++)
+			histData[j][i] = histData[j][i] / (maxColor[j]/histHeight);
+
+	for(i=0; i< 256;i++){
+		Tcontext.fillStyle = 'rgba(' + i + ', 0, 0, 1)';
+		Tcontext.fillRect(i,histHeight,1,-histData[0][i]);
+		Tcontext.fillStyle = 'rgba(0, '+ i +', 0, 1)';
+		Tcontext.fillRect(i,histHeight*2,1,-histData[1][i]);
+		Tcontext.fillStyle = 'rgba(0, 0, '+ i +', 1)';
+		Tcontext.fillRect(i,histHeight*3,1,-histData[2][i]);
+	}
+
+	var afterImg = new Image();
+	afterImg.src = Tcanvas.toDataURL();
+	return afterImg;
 }

@@ -23,15 +23,36 @@ body {
 
 .imgContent{
 	width:45%;
-	display: inline-block;
-	_display: inline;
 }
+
+.inline{
+    display: inline-block;
+    _display: inline;
+}
+
+.btnGroup{
+    border :solid 1px #999999;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px 10px 0px 10px;
+}
+
+.funcBtn{
+    width:40%;
+    margin: auto;
+}
+
+.centerGroup{
+    text-align: center;
+}
+
 
 img {
 	width:100%;
+    margin: 5px;
 }
 
 input {
     width:60px;
-    margin-bottom: 10px;
+    margin:0px 5px 10px 5px;
 }
