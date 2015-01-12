@@ -238,3 +238,17 @@ function imgResize(originImg,rWidth,rHeight){
 	afterImg.src = Rcanvas.toDataURL();
 	return afterImg;
 }
+
+//画像を90度回転する。
+function imgRotate(originImg){
+	var Rcanvas = document.createElement('canvas');
+	Rcanvas.width = originImg.height;
+	Rcanvas.height = originImg.width;
+	var Rcontext = Rcanvas.getContext('2d');
+
+	Rcontext.rotate(180/360*Math.PI);
+    Rcontext.drawImage(originImg, 0, -originImg.height);
+
+	userImg.src = Rcanvas.toDataURL();
+	return 0;
+}
