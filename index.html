@@ -5,9 +5,9 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />	
-<meta name="robots" content="INDEX,FOLLOW" />	
-<meta name="viewport" content="width=device-width, maximum-scale=1.0,initial-scale=0.7, user-scalable=1">  
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="robots" content="INDEX,FOLLOW" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0,initial-scale=0.7, user-scalable=1">
 
 <script src="js/jquery.min.js"></script>
 
@@ -74,6 +74,8 @@
   <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'3')">Reverse</div>
 </div>
 
+<br>
+
 <div class="btnGroup inline">
   <nobr>
     <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'7')">Segment GrayScale</div>
@@ -84,6 +86,13 @@
     <input type="number" id="segmentColorValue" value="5" placeholder="5" onkeyup="imgOutput(userImg,'8')" maxlength="3" />
   <nobr>
 </div>
+
+<div class="btnGroup inline">
+  <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'13')">Row Freaquensy</div>
+  <input type="number" id="rowFrequensyValue" value="127" placeholder="127" onkeyup="imgOutput(userImg,'13')" maxlength="3" />
+</div>
+
+<br>
 
 <div class="btnGroup inline">
   <div class="btn btn-info selectBtn" onclick="imgOutput(userImg,'4')">Threshold</div>
@@ -145,7 +154,7 @@
 	<h5>after</h5>
 	<img id="afterImg">
 </div>
-  
+
 <div class="centerGroup">
   <div class="funcBtn btn btn-info selectBtn" onclick="displayHistogram();">Make Histogram</div>
   <div class="funcBtn btn btn-info selectBtn" onclick="userImg.src = $('#afterImg').src;">Exchange Image</div>

@@ -4,7 +4,7 @@ var loadImg = new Image();
 loadImg.src="img/loading.gif";
 userImg.onload = function(evt){
 	$("#beforeImg").src=userImg.src;
-	imgOutput(userImg,"1");	
+	imgOutput(userImg,"1");
 }
 
 function $(id) {
@@ -59,11 +59,11 @@ function imgOutput(originImg,pattern){
 			var value = new Array(0,-1,0,-1,5,-1,0,-1,0);
 			pattern = "5";
 		break;
-	
-		case "7":		//Segment GrayScale 
+
+		case "7":		//Segment GrayScale
 			var value = $("#segmentGrayValue").value;
 		break;
-		case "8":		//Segment Color 
+		case "8":		//Segment Color
 			var value = $("#segmentColorValue").value;
 		break;
 		case "9":		//ColorFilter
@@ -83,6 +83,9 @@ function imgOutput(originImg,pattern){
 		break;
 		case "12":		//mosaic
 			var value = $("#mosaicValue").value;
+		break;
+		case "13":		//rowFrequensy
+			var value = parseInt($("#rowFrequensyValue").value);
 		break;
 	}
 	$("#afterImg").src=imgTrans(originImg,pattern,value).src;
@@ -142,7 +145,7 @@ function imgTrans(originImg,pattern,value) {
 			}
 			break;
 		case "4":
-		//２値化 threshold 
+		//２値化 threshold
 			for(var i = 0; i < originImgData.data.length; i+=4){
 		 	   var r = originImgData.data[i];
 		 	   var g = originImgData.data[i+1];
@@ -156,7 +159,7 @@ function imgTrans(originImg,pattern,value) {
 			}
 			break;
 		case "5":
-		//AboveFilter 
+		//AboveFilter
 			for(var x = 0; x < Tcanvas.width; x++){
 				for(var y = 0; y < Tcanvas.height; y++){
 				   	var cp = (y*Tcanvas.width+x)*4; //currentPixel
@@ -179,7 +182,7 @@ function imgTrans(originImg,pattern,value) {
 			}
 			break;
 		case "7":
-		//Segment GrayScale 
+		//Segment GrayScale
 			value = value -1 ;
 			for(var i = 0; i < originImgData.data.length; i+=4){
 		 	   var r = 0.2126*originImgData.data[i];
@@ -226,7 +229,7 @@ function imgTrans(originImg,pattern,value) {
 			}
 			break;
 		case "12":
-		//mosaic 
+		//mosaic
 			for(var x = 0; x < Tcanvas.width; x = x + parseInt(value)){
 				for(var y = 0; y < Tcanvas.height; y = y + parseInt(value)){
 				   	var cp = (y*Tcanvas.width+x)*4; //currentPixel
@@ -255,8 +258,44 @@ function imgTrans(originImg,pattern,value) {
 					}
 			 	}
 			}
-			break;			
-	}	
+			break;
+			case "13":
+			//row freauensy
+				for(var x = 0; x < Tcanvas.width; x++){
+					for(var y = 0; y < Tcanvas.height; y++){
+				   	var cp = (y*Tcanvas.width+x)*4; //currentPixel
+
+						averageValueR = (originImgData.data[cp+4] + originImgData.data[cp+4*Tcanvas.width] + originImgData.data[cp+4+4*Tcanvas.width])/3-originImgData.data[cp];
+						averageValueG = (originImgData.data[cp+1+4] + originImgData.data[cp+1+4*Tcanvas.width] + originImgData.data[cp+1+4+4*Tcanvas.width])/3-originImgData.data[cp+1];
+						averageValueB = (originImgData.data[cp+2+4] + originImgData.data[cp+2+4*Tcanvas.width] + originImgData.data[cp+2+4+4*Tcanvas.width])/3-originImgData.data[cp+2];
+
+						averageValue = parseInt((averageValueR + averageValueG + averageValueB)/3+value);
+						if(averageValue>255)averageValue = 255;
+
+						afterImgData.data[cp] = averageValue;
+						afterImgData.data[cp+1] = averageValue
+						afterImgData.data[cp+2] = averageValue;
+						afterImgData.data[cp+3] = originImgData.data[cp+3];
+				 	}
+				}
+
+				var maxValue = 0;
+				for(var x = 0; x < Tcanvas.width; x++){
+					for(var y = 0; y < Tcanvas.height; y++){
+						var cp = (y*Tcanvas.width+x)*4; //currentPixel
+						for(var i=0;i<3;i++)if(maxValue<afterImgData.data[cp+i])maxValue = afterImgData.data[cp+i];
+					}
+				}
+
+				for(var x = 0; x < Tcanvas.width; x++){
+					for(var y = 0; y < Tcanvas.height; y++){
+						var cp = (y*Tcanvas.width+x)*4; //currentPixel
+						for(var i=0;i<3;i++)afterImgData.data[cp+i] = parseInt(afterImgData.data[cp+i] * 255 /maxValue);
+					}
+				}
+
+				break;
+				}
 	Tcontext.putImageData(afterImgData, 0, 0);
 	var afterImg = new Image();
 	afterImg.src = Tcanvas.toDataURL();
@@ -274,7 +313,7 @@ function imgResize(originImg,rWidth,rHeight){
 		Rcontext.drawImage(originImg, 0, 0, originImg.width,parseInt(rHeight/rWidth*originImg.width), 0, 0, rWidth, rHeight);
 	} else {
 		//画像の左右を切ってリサイズ
-		Rcontext.drawImage(originImg, parseInt(originImg.width/2-rWidth/rHeight*originImg.height/2), 0, parseInt(rWidth/rHeight*originImg.height),originImg.height, 0, 0, rWidth, rHeight);										
+		Rcontext.drawImage(originImg, parseInt(originImg.width/2-rWidth/rHeight*originImg.height/2), 0, parseInt(rWidth/rHeight*originImg.height),originImg.height, 0, 0, rWidth, rHeight);
 	}
 	var afterImg = new Image();
 	afterImg.src = Rcanvas.toDataURL();
@@ -329,7 +368,7 @@ function makeHistogram(originImg) {
 	for(i=0; i< 256;i++)
 		for(j = 0; j < 3; j++)
 			if(maxColor[j] < histData[j][i])
-				maxColor[j] =histData[j][i]; 
+				maxColor[j] =histData[j][i];
 
 	for(i=0; i< 256;i++)
 		for(j = 0; j < 3; j++)
